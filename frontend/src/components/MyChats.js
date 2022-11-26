@@ -1,11 +1,11 @@
-import React,  { useState, useEffect } from 'react'
-import { ChatState } from '../Context/ChatProvider'
-import { useToast, Box, Stack, Text, Button } from '@chakra-ui/react'
-import axios from 'axios'
-import ChatLoading from './ChatLoading'
-import { getSender } from '../config/ChatLogics'
-import { AddIcon } from '@chakra-ui/icons'
-import GroupChatModal from './miscellaneous/GroupChatModal'
+import React, { useState, useEffect } from "react";
+import { ChatState } from "../Context/ChatProvider";
+import { useToast, Box, Stack, Text, Button } from "@chakra-ui/react";
+import axios from "axios";
+import ChatLoading from "./ChatLoading";
+import { getSender } from "../config/ChatLogics";
+import { AddIcon } from "@chakra-ui/icons";
+import GroupChatModal from "./miscellaneous/GroupChatModal";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
@@ -39,6 +39,7 @@ const MyChats = ({ fetchAgain }) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
+    // eslint-disable-next-line
   }, [fetchAgain]);
   return (
     <Box
@@ -70,7 +71,6 @@ const MyChats = ({ fetchAgain }) => {
             Tạo nhóm
           </Button>
         </GroupChatModal>
-      
       </Box>
       <Box
         d="flex"
@@ -100,7 +100,6 @@ const MyChats = ({ fetchAgain }) => {
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Text>
-                
               </Box>
             ))}
           </Stack>
@@ -109,7 +108,7 @@ const MyChats = ({ fetchAgain }) => {
         )}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default MyChats
+export default MyChats;

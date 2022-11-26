@@ -12,14 +12,13 @@ import {
   Input,
   useToast,
   Box,
-  Text
+  // Text
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import UserListItem from "../UserAvatar/UserListItem";
-
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,7 +43,6 @@ const GroupChatModal = ({ children }) => {
 
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
-
 
   const handleSearch = async (query) => {
     setSearch(query);
@@ -128,66 +126,62 @@ const GroupChatModal = ({ children }) => {
   const { user, chats, setChats } = ChatState();
   return (
     <>
-    <Button onClick={onOpen}>Tạo nhóm</Button>
+      <Button onClick={onOpen}>Tạo nhóm</Button>
 
-    <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-      <ModalHeader
-        fontSize="27px"
-        d="flex"
-        justifyContent="center"
-      >
-        Nhóm mới
-      </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <FormControl>
-          <Input
-            placeholder="Tên nhóm"
-            mb={3}
-            onChange={(e) => setGroupChatName(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <Input
-            placeholder="Thêm eg: John, Piyush, Jane"
-            mb={1}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-        </FormControl>
-        <Box w="100%" d="flex" flexWrap="wrap">
-        {selectedUsers.map((u) => (
-          <UserBadgeItem
-            key={u._id}
-            user={u}
-            handleFunction={() => handleDelete(u)}
-          />
-        ))}
-      </Box>
-        {loading ? (
-          // <ChatLoading />
-          <div>Loading...</div>
-        ) : (
-          searchResult
-            ?.slice(0, 4)
-            .map((user) => (
-              <UserListItem
-                key={user._id}
-                user={user}
-                handleFunction={() => handleGroup(user)}
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontSize="27px" d="flex" justifyContent="center">
+            Nhóm mới
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <Input
+                placeholder="Tên nhóm"
+                mb={3}
+                onChange={(e) => setGroupChatName(e.target.value)}
               />
-            ))
-        )}
-        </ModalBody>
+            </FormControl>
+            <FormControl>
+              <Input
+                placeholder="Thêm eg: John, Piyush, Jane"
+                mb={1}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </FormControl>
+            <Box w="100%" d="flex" flexWrap="wrap">
+              {selectedUsers.map((u) => (
+                <UserBadgeItem
+                  key={u._id}
+                  user={u}
+                  handleFunction={() => handleDelete(u)}
+                />
+              ))}
+            </Box>
+            {loading ? (
+              // <ChatLoading />
+              <div>Loading...</div>
+            ) : (
+              searchResult
+                ?.slice(0, 4)
+                .map((user) => (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    handleFunction={() => handleGroup(user)}
+                  />
+                ))
+            )}
+          </ModalBody>
 
-        <ModalFooter>
-          <Button onClick={handleSubmit} colorScheme="blue">
-            Tạo 
-          </Button>
-      </ModalFooter>
-      </ModalContent>
-    </Modal>
+          <ModalFooter>
+            <Button onClick={handleSubmit} colorScheme="blue">
+              Tạo
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
